@@ -28,3 +28,13 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+
+task zip(type: Zip, dependsOn: jar) {
+	from ('etc/.ebextensions') {
+		into '.ebextensions'
+	}
+	from(jar.outputs.files){
+		into '.'
+	}
+	archiveName = "${project.name}.zip"
+}
